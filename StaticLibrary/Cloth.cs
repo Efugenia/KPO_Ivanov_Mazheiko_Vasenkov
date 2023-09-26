@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-using Item = StaticLibrary.Item;
-
-namespace Knight.Model
+namespace StaticLibrary
 {
+    [Serializable]
     public class Cloth : Item
-    {   
+    {
         private string _material = "Неизвестный материал";
-
         public string Material
         {
             get { return _material; }
@@ -45,12 +44,32 @@ namespace Knight.Model
         {
             Name = name;
             Description = description;
+            Type = "Cloth";
         }
+
+        public Cloth(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+            _material = info.GetString("Material");
+        }
+        //public Cloth(string name, string description, float weight, float price, string material)
+        //{
+        //    _name = name;
+        //    _description = description;
+        //    _weight = weight;
+        //    _price = price;
+        //    _material = material;
+        //}
 
         public void Init(float weight, float price, string material)
         {
             base.Init(weight, price);
             _material = material;
+        }
+
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            base.GetObjectData(info, context);
+            info.AddValue("Material", _material);
         }
     }
 }

@@ -5,14 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Knight"
         mc:Ignorable="d"
-        Title="MainWindow" Height="555" Width="800">
-    <Grid Loaded="Grid_Loaded">
+        Title="MainWindow" Height="443" Width="603"
+        WindowStartupLocation="CenterScreen">
+    <Grid Loaded="Grid_Loaded" Height="441" VerticalAlignment="Center">
         <Grid.RowDefinitions>
-            <RowDefinition Height="324*"/>
-            <RowDefinition Height="215*"/>
+            <RowDefinition Height="206*"/>
+            <RowDefinition Height="239*"/>
         </Grid.RowDefinitions>
-        <TextBox x:Name="Console" HorizontalAlignment="Left" Margin="282,264,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="495" Background="White" Height="197" Foreground="Black" BorderBrush="#FF030303" Grid.RowSpan="2"/>
-        <Grid Background="#FFEEEEEE" HorizontalAlignment="Left" Width="267" Margin="10,264,0,0" Height="235" VerticalAlignment="Top" Grid.RowSpan="2">
+        <TextBox x:Name="Console" HorizontalAlignment="Left" Margin="292,96,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="292" Background="White" Height="68" Foreground="Black" BorderBrush="#FF030303" Grid.Row="1"/>
+        <Grid Background="#FFEEEEEE" HorizontalAlignment="Left" Width="268" Margin="14,49,0,0" Height="235" VerticalAlignment="Top" Grid.RowSpan="2">
             <Grid.RowDefinitions>
                 <RowDefinition Height="145*"/>
                 <RowDefinition Height="48*"/>
@@ -30,7 +31,6 @@
             <Label Content="Вес" HorizontalAlignment="Left" Margin="5,117,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.121,0.171"/>
             <Label Content="Цена" HorizontalAlignment="Left" Margin="5,140,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.121,0.171"/>
             <Button Content="Добавить" HorizontalAlignment="Left" Margin="10,15,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="247" Height="32" Click="Button_Click" Grid.Row="1"/>
-            <ComboBox HorizontalAlignment="Left" Margin="-150,9,0,0" VerticalAlignment="Top" Width="120"/>
             <Label Content="Тип" HorizontalAlignment="Left" Margin="5,2,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.121,0.171"/>
             <ComboBox x:Name="typeField" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="70,6,0,0" VerticalAlignment="Top" Width="188" SelectedIndex="0" SelectionChanged="typeField_SelectionChanged">
                 <ComboBoxItem Content="Оружие"/>
@@ -40,8 +40,23 @@
             <TextBox x:Name="otherField" HorizontalAlignment="Left" Margin="70,167,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="188" Grid.ColumnSpan="2" Text="0" Grid.RowSpan="2"/>
             <Label x:Name="otherLabel" Content="Урон" HorizontalAlignment="Left" Margin="5,163,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.121,0.171" Grid.RowSpan="2"/>
         </Grid>
-        <TextBox x:Name="inventoryTab" HorizontalAlignment="Left" Margin="10,10,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="767" Height="239"/>
-        <Button x:Name="stasikButton" Content="Анекдот дня" HorizontalAlignment="Left" Margin="282,155,0,0" VerticalAlignment="Top" Grid.Row="1" Width="495" Click="StatikClick"/>
+        <TextBox x:Name="inventoryTab" HorizontalAlignment="Left" Margin="292,21,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="292" Height="263" Grid.RowSpan="2"/>
+        <Button x:Name="stasikButton" Content="Анекдот дня" HorizontalAlignment="Left" Margin="292,168,0,0" VerticalAlignment="Top" Grid.Row="1" Width="292" Click="StatikClick" Height="20"/>
+        <ComboBox x:Name="itemsList" HorizontalAlignment="Left" Margin="14,21,0,0" VerticalAlignment="Top" Width="268" SelectedIndex="0" SelectionChanged="itemsList_SelectionChanged_1" Height="22"/>
+        <ComboBox x:Name="enchantmentField" HorizontalAlignment="Left" Margin="84,96,0,0" VerticalAlignment="Top" Width="188" SelectedIndex="0" SelectionChanged="typeField_SelectionChanged" Grid.Row="1">
+            <ComboBoxItem Content="Бесконечность"/>
+            <ComboBoxItem Content="Лёгкость"/>
+            <ComboBoxItem Content="Позолота"/>
+        </ComboBox>
+        <Button x:Name="enchantButton" Content="Зачаровать выбранный предмет" HorizontalAlignment="Left" Margin="24,127,0,0" VerticalAlignment="Top" Width="248" Height="28" Grid.Row="1" Click="enchantButton_Click"/>
+        <Label Content="Чары" HorizontalAlignment="Left" Margin="24,95,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.121,0.171" Grid.Row="1"/>
+        <Button x:Name="btnLoad" Content="Загрузить" HorizontalAlignment="Left" Margin="24,194,0,0" Grid.Row="1" VerticalAlignment="Top" Width="119" Click="btnLoad_Click"/>
+        <Button x:Name="btnSave" Content="Сохранить" HorizontalAlignment="Left" Margin="148,194,0,0" Grid.Row="1" VerticalAlignment="Top" Width="124" Click="btnSave_Click"/>
+        <Label Content="Формат файла" HorizontalAlignment="Left" Margin="16,165,0,0" Grid.Row="1" VerticalAlignment="Top"/>
+        <ComboBox x:Name="cmbFileFormat" SelectedValuePath="Content" HorizontalAlignment="Left" Margin="218,167,0,0" VerticalAlignment="Top" Width="54" SelectedIndex="0" SelectionChanged="typeField_SelectionChanged" Grid.Row="1">
+            <ComboBoxItem Content="json"/>
+            <ComboBoxItem Content="dat"/>
+        </ComboBox>
 
     </Grid>
 </Window>

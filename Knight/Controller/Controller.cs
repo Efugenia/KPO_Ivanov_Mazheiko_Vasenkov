@@ -9,6 +9,9 @@ using System.Windows;
 using System.Reflection;
 
 using Item = StaticLibrary.Item;
+using Food = StaticLibrary.Food;
+using Weapon = StaticLibrary.Weapon;
+using Cloth = StaticLibrary.Cloth;
 
 namespace Knight
 {
@@ -21,6 +24,7 @@ namespace Knight
             {
             }
         }
+
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
@@ -35,15 +39,21 @@ namespace Knight
                 if (typeField.SelectedIndex == 0)
                 {
                     //Weapon weapon = new Weapon(name, description, weight, cost, Convert.ToInt32(otherField.Text));
-                    Weapon weapon = new Weapon(name, description);
-                    weapon.Init(weight, cost, Convert.ToInt32(otherField.Text));
-                    inventory.AddItem(weapon);
+                    Item weapon = new Weapon(name, description);
+                    ((Weapon)weapon).Init(weight, cost, Convert.ToInt32(otherField.Text));
+
+                    //weapon = new FeatherlikeItem(weapon, weapon.Description);
+                    //weapon = new InfiniteItem(weapon, weapon.Description);
+                    //FeatherlikeItem fo = new FeatherlikeItem(weapon, io.Description);
+
+                    inventory.Items.Add(weapon);
                 }
                 if (typeField.SelectedIndex == 1)
                 {
                     //Food food = new Food(name, description, weight, cost, Convert.ToInt32(otherField.Text));
                     Food food = new Food(name, description);
                     food.Init(weight, cost, Convert.ToInt32(otherField.Text));
+
                     inventory.AddItem(food);
                 }
                 if (typeField.SelectedIndex == 2) {
@@ -61,14 +71,35 @@ namespace Knight
                 Calculate();
 
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("Всё накрылось медным тазом...");
+                //MessageBox.Show("Всё накрылось медным тазом...\n\n" + ex.Message);
+                throw;
             }
         }
 
         private void AddDefaultItems()
         {
+            Random rnd = new Random();
+            int type = rnd.Next(0, 3);
+            Item randomItem;
+            switch(type)
+            {
+                case 0:
+                    randomItem = new Food("Случайная еда", "Кто знает съедобно ли это...");
+                    break;
+                case 1:
+                    randomItem = new Cloth("Случайная одежда", "Зато не надо думать, что надеть");
+                    break; 
+                case 2:
+                    randomItem = new Weapon("Случайное оружие", "Вроде им можно бить");
+                    break;
+                default:
+                    randomItem = new Food("Тебе повезло всё сломать", "Не то чтобы на это нужно было везение");
+                    break;
+            }
+
+            inventory.AddItem(randomItem);
             //inventory.AddItem(new Weapon("Стандартный меч",
             //    "Твой первый меч. Бесценен. Нет, буквально, он никому не нужен.", 2f, 0f, 10));
 
@@ -88,10 +119,16 @@ namespace Knight
 
             //конечно, можно обойтись без bufferItem, но тогда мы получим фигово читаемую матрёшку,
             //где мы вызываем метод в методе. Нам это надо? Я считаю нет
-            Item bufferItem = inventory.GetCheapestItem();
-            WriteLine(String.Format("Самый дешёвый предмет - {0} стоимостью {1} тугр.", bufferItem.Name, bufferItem.Price));
-            bufferItem = inventory.GetExpensiveItem();
-            WriteLine(String.Format("Самый дорогой предмет - {0} стоимостью {1} тугр.", bufferItem.Name, bufferItem.Price));
+            
+            if (inventory.Items.Count > 0)
+            {
+                Item bufferItem = inventory.GetCheapestItem();
+                WriteLine(String.Format("Самый дешёвый предмет - {0} стоимостью {1} тугр.", bufferItem.Name, bufferItem.Price));
+                bufferItem = inventory.GetExpensiveItem();
+                WriteLine(String.Format("Самый дорогой предмет - {0} стоимостью {1} тугр.", bufferItem.Name, bufferItem.Price));
+            }
+
+
         }
     }
 }

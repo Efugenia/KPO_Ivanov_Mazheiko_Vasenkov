@@ -1,13 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using Item = StaticLibrary.Item;
+using System.Runtime.Serialization;
+using System.Windows.Media.Media3D;
 
-namespace Knight.Model
+namespace StaticLibrary
 {
+    [Serializable]
     public class Food : Item
     {
         private int _satiety = 0;
@@ -31,7 +28,7 @@ namespace Knight.Model
         }
 
         public override void Use()
-        {   
+        {
             _satiety /= 2;
             _price /= 2;
             _weight /= 2;
@@ -45,16 +42,37 @@ namespace Knight.Model
             _satiety = 0;
         }
 
+        public Food() { }
         public Food(string name, string description)
         {
             Name = name;
             Description = description;
+            Type = "Food";
         }
+        public Food(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+            _satiety = (int)info.GetValue("Satiety",typeof(int));
+        }
+
+        //public Food(string name, string description, float weight, float price, int satiety)
+        //{
+        //    _name = name;
+        //    _description = description;
+        //    _weight = weight;
+        //    _price = price;
+        //    _satiety = satiety;
+        //}
 
         public void Init(float weight, float price, int satiety)
         {
             base.Init(weight, price);
             _satiety = satiety;
+        }
+
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            base.GetObjectData(info, context);
+            info.AddValue("Satiety", _satiety);
         }
     }
 }
