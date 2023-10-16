@@ -9,6 +9,7 @@ using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Knight.Model.FileManagment
 {
@@ -36,9 +37,15 @@ namespace Knight.Model.FileManagment
             {
                 WriteIndented = true
             };
-
-            string json = JsonSerializer.Serialize<Item>(item, options);
-            File.WriteAllText(_path, json);
+            try
+            {
+                string json = JsonSerializer.Serialize<Item>(item, options);
+                File.WriteAllText(_path, json);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("Недопустимый тип");
+            }
             //var asas = item.GetType();
             //DataContractJsonSerializer serializer = new DataContractJsonSerializer(item.GetType());
             //Stream stream = new FileStream(_path, FileMode.Create);

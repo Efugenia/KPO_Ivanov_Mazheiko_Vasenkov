@@ -7,16 +7,20 @@ using System.Threading.Tasks;
 using System.Windows;
 
 using System.Reflection;
+using NLog;
 
 using Item = StaticLibrary.Item;
 using Food = StaticLibrary.Food;
 using Weapon = StaticLibrary.Weapon;
 using Cloth = StaticLibrary.Cloth;
+using StaticLibrary;
 
 namespace Knight
 {
     public partial class MainWindow : Window
-    {
+    {   
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         public Inventory Inventory
         {
             get => default;
@@ -34,37 +38,36 @@ namespace Knight
                 string description = descriptionField.Text;
                 float weight = float.Parse(weightField.Text);
                 float cost = float.Parse(costField.Text);
-                
 
+
+                Item? item = null;
                 if (typeField.SelectedIndex == 0)
                 {
                     //Weapon weapon = new Weapon(name, description, weight, cost, Convert.ToInt32(otherField.Text));
-                    Item weapon = new Weapon(name, description);
-                    ((Weapon)weapon).Init(weight, cost, Convert.ToInt32(otherField.Text));
+                    item = new Weapon(name, description);
+                    ((Weapon)item).Init(weight, cost, Convert.ToInt32(otherField.Text));
 
-                    //weapon = new FeatherlikeItem(weapon, weapon.Description);
-                    //weapon = new InfiniteItem(weapon, weapon.Description);
-                    //FeatherlikeItem fo = new FeatherlikeItem(weapon, io.Description);
-
-                    inventory.Items.Add(weapon);
+                    inventory.Items.Add(item);
                 }
                 if (typeField.SelectedIndex == 1)
                 {
-                    //Food food = new Food(name, description, weight, cost, Convert.ToInt32(otherField.Text));
-                    Food food = new Food(name, description);
-                    food.Init(weight, cost, Convert.ToInt32(otherField.Text));
+                    item = new Food(name, description);
+                    ((Food)item).Init(weight, cost, Convert.ToInt32(otherField.Text));
 
-                    inventory.AddItem(food);
+                    inventory.AddItem(item);
                 }
                 if (typeField.SelectedIndex == 2) {
-                    //Cloth cloth = new Cloth(name, description, weight, cost, otherField.Text);
-
-                    Cloth cloth = new Cloth(name, description);
-                    cloth.Init(weight, cost, otherField.Text);
+                    item = new Cloth(name, description);
+                    ((Cloth)item).Init(weight, cost, otherField.Text);
  
-                    inventory.AddItem(cloth);
+                    inventory.AddItem(item);
                 }
 
+                if (item != null)
+                {
+                    string txt = "[ NEW ITEM ] " + item.ToString() + "\n";
+                    logger.Info(txt);
+                }
 
                 //dgInventory.Items.Refresh();
                 FillTab();
@@ -74,7 +77,8 @@ namespace Knight
             catch (Exception ex)
             {
                 //MessageBox.Show("Всё накрылось медным тазом...\n\n" + ex.Message);
-                throw;
+                string txt = "[ ITEM CREATION ERROR ]\n" + ex.Message + "\n";
+                logger.Info(txt);
             }
         }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 using System.Windows.Media.Media3D;
+using System.Text.Json.Serialization;
 
 namespace StaticLibrary
 {
@@ -9,6 +10,7 @@ namespace StaticLibrary
     {
         private int _satiety = 0;
 
+        [JsonPropertyName("sat")]
         public int Satiety
         {
             get { return _satiety; }
