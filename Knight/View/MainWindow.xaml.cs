@@ -21,7 +21,8 @@ using Item = StaticLibrary.Item;
 using Food = StaticLibrary.Food;
 using Weapon = StaticLibrary.Weapon;
 using Cloth = StaticLibrary.Cloth;
-
+using System.Threading;
+using System.Globalization;
 
 namespace Knight
 {
@@ -38,12 +39,58 @@ namespace Knight
         public MainWindow()
         {
             InitializeComponent();
+
+            App.LanguageChanged += LanguageChanged;
+            CultureInfo currLang = App.Language;
+
+            //Заполняем меню смены языка:
+            menuLanguage.Items.Clear();
+            foreach (var lang in App.Languages)
+            {
+                MenuItem menuLang = new MenuItem();
+                menuLang.Header = lang.DisplayName;
+                menuLang.Tag = lang;
+                menuLang.IsChecked = lang.Equals(currLang);
+                menuLang.Click += ChangeLanguageClick;
+                menuLanguage.Items.Add(menuLang);
+            }
+
             inventory = new Inventory();
             AddDefaultItems();
             //dgInventory.ItemsSource = inventory.Items;
             FillTab();
         }
-       
+
+        private void LanguageChanged(Object sender, EventArgs e)
+        {
+            CultureInfo currLang = App.Language;
+
+            //Отмечаем нужный пункт смены языка как выбранный язык
+            foreach (MenuItem i in menuLanguage.Items)
+            {
+                CultureInfo ci = i.Tag as CultureInfo;
+                i.IsChecked = ci != null && ci.Equals(currLang);
+            }
+        }
+
+        private void ChangeLanguageClick(Object sender, EventArgs e)
+        {
+            MenuItem mi = sender as MenuItem;
+            if (mi != null)
+            {
+                CultureInfo lang = mi.Tag as CultureInfo;
+                if (lang != null)
+                {
+                    App.Language = lang;
+                }
+            }
+
+            typeField.SelectedIndex = 1;
+            typeField.SelectedIndex = 0;
+            AddDefaultItems();
+            FillTab();
+            Calculate();
+        }
 
         public void WriteLine(string txt)
         {
@@ -62,17 +109,17 @@ namespace Knight
             {
                 if (typeField.SelectedIndex == 0)
                 {
-                    otherLabel.Content = "Урон";
+                    otherLabel.Content = (string)Application.Current.FindResource("damage");
                     otherField.Text = "0";
                 }
                 if (typeField.SelectedIndex == 2)
                 {
-                    otherLabel.Content = "Материал";
-                    otherField.Text = "Неизвестно";
+                    otherLabel.Content = (string)Application.Current.FindResource("material");
+                    otherField.Text = (string)Application.Current.FindResource("unknown");
                 }
                 if (typeField.SelectedIndex == 1)
                 {
-                    otherLabel.Content = "Сытность";
+                    otherLabel.Content = (string)Application.Current.FindResource("satiety");
                     otherField.Text = "0";
                 }
             }
@@ -108,7 +155,7 @@ namespace Knight
             }
             catch (Exception ex)
             {   
-                MessageBox.Show(ex.Message, "Ошибка!", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(ex.Message, "Error!", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -121,32 +168,6 @@ namespace Knight
                 i = 0;
             }
             inventoryTab.Text = inventory.Items[i].ToString();
-        }
-
-        private void enchantButton_Click(object sender, RoutedEventArgs e)
-        {
-            int i = itemsList.SelectedIndex;
-            if (i < 0)
-            {
-                i = 0;
-            }
-            Item item = inventory.Items[i];
-
-            if (enchantmentField.SelectedIndex == 0)
-            {
-                item = new InfiniteItem(item, item.Description);
-            }
-            if (enchantmentField.SelectedIndex == 1)
-            {
-                item = new FeatherlikeItem(item, item.Description);
-            }
-            if (enchantmentField.SelectedIndex == 2)
-            {
-                item = new GoldenItem(item, item.Description);
-            }
-
-            inventory.Items[i] = item;
-            FillTab();
         }
 
         private void btnLoad_Click(object sender, RoutedEventArgs e)

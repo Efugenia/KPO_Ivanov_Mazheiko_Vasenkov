@@ -1,0 +1,45 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:v="clr-namespace:System;assembly=System.Runtime">
+	
+	<v:String x:Key="typeLabel">Type</v:String>
+	<v:String x:Key="nameLabel">Name</v:String>
+	<v:String x:Key="description">Description</v:String>
+	<v:String x:Key="weight">Weight</v:String>
+	<v:String x:Key="price">Price</v:String>
+	<v:String x:Key="otherLabel">Something</v:String>
+	<v:String x:Key="enchantmentLabel">Enchantment</v:String>
+	<v:String x:Key="fileFormatLabel">File format</v:String>
+
+    <v:String x:Key="addButton">Add</v:String>
+    <v:String x:Key="stasikButton">Joke of the day</v:String>
+    <v:String x:Key="enchantButton">Enchant selected item</v:String>
+    <v:String x:Key="btnLoad">Load</v:String>
+    <v:String x:Key="btnSave">Save</v:String>
+
+    <v:String x:Key="item">Item</v:String>
+    <v:String x:Key="weapon">Weapon</v:String>
+    <v:String x:Key="food">Food</v:String>
+    <v:String x:Key="cloth">Armor</v:String>
+    <v:String x:Key="infinityEnch">Infinity</v:String>
+    <v:String x:Key="lightnessEnch">Lightness</v:String>
+    <v:String x:Key="goldenEnch">Golden</v:String>
+    <v:String x:Key="infinityEffect">~ UNBREAKABLE ~</v:String>
+    <v:String x:Key="goldenEffect">~ GOLDEN ~</v:String>
+    <v:String x:Key="lightnessEffect">~ LIGHT AS FEATHER ~</v:String>
+
+    <v:String x:Key="damage">Damage</v:String>
+    <v:String x:Key="satiety">Satiety</v:String>
+    <v:String x:Key="material">Material</v:String>
+    <v:String x:Key="unknown">Unknown</v:String>
+
+    <v:String x:Key="weightUnit">kg</v:String>
+    <v:String x:Key="priceUnit">$</v:String>
+    <v:String x:Key="damageUnit">HP</v:String>
+    <v:String x:Key="satietyUnit">cal.</v:String>
+
+    <v:String x:Key="overallPriceMessage">Overall price is</v:String>
+    <v:String x:Key="minPriceMessage">The cheapest item is</v:String>
+    <v:String x:Key="maxPriceMessage">The most expensive item is</v:String>
+
+</ResourceDictionary>

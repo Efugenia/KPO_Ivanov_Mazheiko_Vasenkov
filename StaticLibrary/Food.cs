@@ -2,6 +2,7 @@
 using System.Runtime.Serialization;
 using System.Windows.Media.Media3D;
 using System.Text.Json.Serialization;
+using System.Windows;
 
 namespace StaticLibrary
 {
@@ -10,7 +11,6 @@ namespace StaticLibrary
     {
         private int _satiety = 0;
 
-        [JsonPropertyName("sat")]
         public int Satiety
         {
             get { return _satiety; }
@@ -19,23 +19,11 @@ namespace StaticLibrary
 
         public override string ToString()
         {
-            string info = "";
-            info += "\n   Еда:   " + Name;
-            info += "\n   Описание:   " + Description;
-            info += "\n   Вес:   " + Weight.ToString() + " кг.";
-            info += "\n   Цена:   " + Price.ToString() + " тугр.";
-            info += "\n   Сытность:   " + Satiety.ToString() + " ккал.";
+            string info = base.ToString();
+            info += $"\n{Application.Current.FindResource("satiety")}:   {Satiety} " +
+                         $"{Application.Current.FindResource("satietyUnit")}";
 
             return info;
-        }
-
-        public override void Use()
-        {
-            _satiety /= 2;
-            _price /= 2;
-            _weight /= 2;
-
-            Console.WriteLine("Наполовину скушано...");
         }
 
         public override void Default()
@@ -44,7 +32,7 @@ namespace StaticLibrary
             _satiety = 0;
         }
 
-        public Food() { }
+        public Food() { Type = "Food"; }
         public Food(string name, string description)
         {
             Name = name;

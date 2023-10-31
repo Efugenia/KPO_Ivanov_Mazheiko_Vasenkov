@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace StaticLibrary
 {
@@ -19,19 +20,10 @@ namespace StaticLibrary
 
         public override string ToString()
         {
-            string info = "";
-            info += "\n   Одежда:   " + Name;
-            info += "\n   Описание:   " + Description;
-            info += "\n   Вес:   " + Weight.ToString() + " кг.";
-            info += "\n   Цена:   " + Price.ToString() + " тугр.";
-            info += "\n   Материал:   " + Material.ToString();
+            string info = base.ToString();
+            info += $"\n{Application.Current.FindResource("material")}:   {Material}";
 
             return info;
-        }
-
-        public override void Use()
-        {
-            Console.WriteLine($"Вы надели {Name}");
         }
 
         public override void Default()
@@ -39,6 +31,8 @@ namespace StaticLibrary
             base.Default();
             _material = "Неизвестный материал";
         }
+
+        public Cloth() { Type = "Cloth"; }
 
         public Cloth(string name, string description)
         {

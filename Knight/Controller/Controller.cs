@@ -14,6 +14,10 @@ using Food = StaticLibrary.Food;
 using Weapon = StaticLibrary.Weapon;
 using Cloth = StaticLibrary.Cloth;
 using StaticLibrary;
+using System.Diagnostics;
+using System.IO;
+using System.Threading;
+using Knight.Model.FileManagment;
 
 namespace Knight
 {
@@ -29,7 +33,6 @@ namespace Knight
             }
         }
 
-
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             try
@@ -43,7 +46,6 @@ namespace Knight
                 Item? item = null;
                 if (typeField.SelectedIndex == 0)
                 {
-                    //Weapon weapon = new Weapon(name, description, weight, cost, Convert.ToInt32(otherField.Text));
                     item = new Weapon(name, description);
                     ((Weapon)item).Init(weight, cost, Convert.ToInt32(otherField.Text));
 
@@ -78,7 +80,7 @@ namespace Knight
             {
                 //MessageBox.Show("Всё накрылось медным тазом...\n\n" + ex.Message);
                 string txt = "[ ITEM CREATION ERROR ]\n" + ex.Message + "\n";
-                logger.Info(txt);
+                logger.Warn(txt);
             }
         }
 
@@ -86,51 +88,69 @@ namespace Knight
         {
             Random rnd = new Random();
             int type = rnd.Next(0, 3);
-            Item randomItem;
-            switch(type)
-            {
-                case 0:
-                    randomItem = new Food("Случайная еда", "Кто знает съедобно ли это...");
-                    break;
-                case 1:
-                    randomItem = new Cloth("Случайная одежда", "Зато не надо думать, что надеть");
-                    break; 
-                case 2:
-                    randomItem = new Weapon("Случайное оружие", "Вроде им можно бить");
-                    break;
-                default:
-                    randomItem = new Food("Тебе повезло всё сломать", "Не то чтобы на это нужно было везение");
-                    break;
-            }
+
+            string workingDirectory = Environment.CurrentDirectory;
+            string projectDirectory = Directory.GetParent(workingDirectory).Parent.Parent.FullName;
+            var file = Directory.GetFiles($"{projectDirectory}\\Resources\\{Thread.CurrentThread.CurrentUICulture}\\randomItems")[rnd.Next(3)];
+            JsonManager jsonManager = new JsonManager(file);
+            var randomItem = jsonManager.Load();
 
             inventory.AddItem(randomItem);
-            //inventory.AddItem(new Weapon("Стандартный меч",
-            //    "Твой первый меч. Бесценен. Нет, буквально, он никому не нужен.", 2f, 0f, 10));
-
-            //inventory.AddItem(new Cloth("Стандартная броня",
-            //    "Ты с огромным трудом можешь назвать свою рубашку бронёй, но ладно", 0.5f, 0.1f, "Говно и палки"));
-
-            //inventory.AddItem(new Food("Похлёбка",
-            //    "Лучше уж голодать...", 0.1f, 10f, -10));
-
         }
 
         public void Calculate()
         {
             Console.Clear();
 
-            WriteLine(String.Format("Стоимость всей амуниции составляет {0} тугр.", inventory.GetOverallPrice().ToString()));
-
-            //конечно, можно обойтись без bufferItem, но тогда мы получим фигово читаемую матрёшку,
-            //где мы вызываем метод в методе. Нам это надо? Я считаю нет
+            Application app = Application.Current;
+            WriteLine($"{app.FindResource("overallPriceMessage")}" +
+                $" {inventory.GetOverallPrice()} {Application.Current.FindResource("priceUnit")}");
             
             if (inventory.Items.Count > 0)
             {
                 Item bufferItem = inventory.GetCheapestItem();
-                WriteLine(String.Format("Самый дешёвый предмет - {0} стоимостью {1} тугр.", bufferItem.Name, bufferItem.Price));
+                WriteLine($"{app.FindResource("minPriceMessage")} {bufferItem.Name} ({bufferItem.Price} {app.FindResource("priceUnit")})");
+                string txt = "[ ITEMS STATISTICS ] " + bufferItem.Name + ", " + bufferItem.Price + " | ";
+
+
                 bufferItem = inventory.GetExpensiveItem();
-                WriteLine(String.Format("Самый дорогой предмет - {0} стоимостью {1} тугр.", bufferItem.Name, bufferItem.Price));
+                WriteLine($"{app.FindResource("maxPriceMessage")} {bufferItem.Name} ({bufferItem.Price} {app.FindResource("priceUnit")})");
+                txt += bufferItem.Name + ", " + bufferItem.Price + "\n";
+
+                logger.Info(txt);
             }
+
+
+
+        }
+
+        private void enchantButton_Click(object sender, RoutedEventArgs e)
+        {
+            int i = itemsList.SelectedIndex;
+            if (i < 0)
+            {
+                i = 0;
+            }
+            Item item = inventory.Items[i];
+
+            if (enchantmentField.SelectedIndex == 0)
+            {
+                item = new InfiniteItem(item, item.Description);
+            }
+            if (enchantmentField.SelectedIndex == 1)
+            {
+                item = new FeatherlikeItem(item, item.Description);
+            }
+            if (enchantmentField.SelectedIndex == 2)
+            {
+                item = new GoldenItem(item, item.Description);
+            }
+
+            inventory.Items[i] = item;
+            FillTab();
+
+            string txt = "[ ITEM ENCHANTED ] \n" + item.ToString() + "\n";
+            logger.Info(txt);
 
 
         }

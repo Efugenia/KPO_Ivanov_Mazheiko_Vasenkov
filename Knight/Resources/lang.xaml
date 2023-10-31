@@ -1,0 +1,43 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:v="clr-namespace:System;assembly=System.Runtime">
+    <v:String x:Key="typeLabel">Тип</v:String>
+    <v:String x:Key="nameLabel">Название</v:String>
+    <v:String x:Key="description">Описание</v:String>
+    <v:String x:Key="weight">Вес</v:String>
+    <v:String x:Key="price">Цена</v:String>
+    <v:String x:Key="otherLabel">Доп. ха-ка</v:String>
+    <v:String x:Key="enchantmentLabel">Чары</v:String>
+    <v:String x:Key="fileFormatLabel">Формат файла</v:String>
+
+    <v:String x:Key="addButton">Добавить</v:String>
+    <v:String x:Key="stasikButton">Анекдот дня</v:String>
+    <v:String x:Key="enchantButton">Зачаровать выбранный предмет</v:String>
+    <v:String x:Key="btnLoad">Загрузить</v:String>
+    <v:String x:Key="btnSave">Сохранить</v:String>
+
+    <v:String x:Key="item">Предмет</v:String>
+    <v:String x:Key="weapon">Оружие</v:String>
+    <v:String x:Key="food">Еда</v:String>
+    <v:String x:Key="cloth">Броня</v:String>
+    <v:String x:Key="infinityEnch">Бесконечность</v:String>
+    <v:String x:Key="lightnessEnch">Лёгкость</v:String>
+    <v:String x:Key="goldenEnch">Позолота</v:String>
+    <v:String x:Key="infinityEffect">~ НЕРУШИМЫЙ ~</v:String>
+    <v:String x:Key="goldenEffect">~ ПОЗОЛОЧЕННЫЙ ~</v:String>
+    <v:String x:Key="lightnessEffect">~ ЛЁГКИЙ, КАК ПЁРЫШКО ~</v:String>
+
+    <v:String x:Key="damage">Урон</v:String>
+    <v:String x:Key="satiety">Сытность</v:String>
+    <v:String x:Key="material">Материал</v:String>
+    <v:String x:Key="unknown">Неизвестно</v:String>
+
+    <v:String x:Key="weightUnit">кг</v:String>
+    <v:String x:Key="priceUnit">руб.</v:String>
+    <v:String x:Key="damageUnit">ОЗ</v:String>
+    <v:String x:Key="satietyUnit">калл.</v:String>
+
+    <v:String x:Key="overallPriceMessage">Стоимость всей амуниции составляет</v:String>
+    <v:String x:Key="minPriceMessage">Самый дешёвый предмет</v:String>
+    <v:String x:Key="maxPriceMessage">Самый дорогой предмет</v:String>
+    
+</ResourceDictionary>

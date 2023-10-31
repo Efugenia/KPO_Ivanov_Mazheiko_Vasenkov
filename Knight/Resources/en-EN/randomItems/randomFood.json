@@ -1,0 +1,8 @@
+{
+  "$type": "food",
+  "Satiety": 0,
+  "Name": "Random food",
+  "Description": "Who knows if it's edible...",
+  "Weight": 0,
+  "Price": 0
+}

@@ -9,6 +9,7 @@ using Item = StaticLibrary.Item;
 using Food = StaticLibrary.Food;
 using Weapon = StaticLibrary.Weapon;
 using Cloth = StaticLibrary.Cloth;
+using System.Windows;
 
 namespace Knight.Model
 {
@@ -16,7 +17,7 @@ namespace Knight.Model
 
     internal class GoldenItem : EnchantedItem
     {
-        public GoldenItem(Item item, string description) : base(item, description + "\n ~ ПОЗОЛОЧЕННЫЙ ~ ")
+        public GoldenItem(Item item, string description) : base(item, description + $"\n {Application.Current.FindResource("goldenEffect")} ")
         {   
             if (item.Price == 0)
             {

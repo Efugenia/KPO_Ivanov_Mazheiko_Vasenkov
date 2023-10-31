@@ -1,0 +1,8 @@
+{
+  "$type": "weapon",
+  "Damage": 0,
+  "Name": "Random weapon",
+  "Description": "It seems you can fight with it",
+  "Weight": 0,
+  "Price": 0
+}

@@ -22,20 +22,10 @@ namespace StaticLibrary
 
         public override string ToString()
         {
-            string info = "";
-            info += "\n   Оружие:   " + Name;
-            info += "\n   Описание:   " + Description;
-            info += "\n   Вес:   " + Weight.ToString() + " кг.";
-            info += "\n   Цена:   " + Price.ToString() + " тугр.";
-            info += "\n   Урон:   " + Damage.ToString() + " ед.";
-
+            string info = base.ToString();
+            info += "\n" + (string)Application.Current.FindResource("damage") + ":   " + Damage.ToString()
+                                                        + " " + (string)Application.Current.FindResource("damageUnit");
             return info;
-        }
-
-        public override void Use()
-        {
-            _damage -= 0.01 * _damage;
-            Console.WriteLine("Вы совершили мастерский взмах мечом!");
         }
 
         public override void Default()
@@ -43,6 +33,8 @@ namespace StaticLibrary
             base.Default();
             _damage = 0;
         }
+
+        public Weapon() { Type = "Weapon"; }
 
         public Weapon(string name, string description)
         {
@@ -55,15 +47,6 @@ namespace StaticLibrary
         {
             _damage = info.GetInt32("Damage");
         }
-
-        //public Weapon(string name, string description, float weight, float price, int damage)
-        //{
-        //    _name = name;
-        //    _description = description;
-        //    _weight = weight;
-        //    _price = price;
-        //    _damage = damage;
-        //}
 
         public void Init(float weight, float price, int damage)
         {

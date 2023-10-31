@@ -22,41 +22,62 @@
                 <ColumnDefinition Width="121*"/>
                 <ColumnDefinition Width="186*"/>
             </Grid.ColumnDefinitions>
-            <TextBox x:Name="nameField" HorizontalAlignment="Left" Margin="70,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="188" Grid.ColumnSpan="2" Text="Нечто"/>
-            <TextBox x:Name="descriptionField" HorizontalAlignment="Left" Margin="70,53,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="188" Height="63" Grid.ColumnSpan="2" Text="Неизвестного назначения"/>
+
+            <!-- Поля для ввода -->
+            <TextBox x:Name="nameField" HorizontalAlignment="Left" Margin="70,30,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="188" Grid.ColumnSpan="2"/>
+            <TextBox x:Name="descriptionField" HorizontalAlignment="Left" Margin="70,53,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="188" Height="63" Grid.ColumnSpan="2"/>
             <TextBox x:Name="weightField" HorizontalAlignment="Left" Margin="70,121,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="188" Grid.ColumnSpan="2" Text="0"/>
             <TextBox x:Name="costField" HorizontalAlignment="Left" Margin="70,144,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="188" Grid.ColumnSpan="2" Text="0"/>
-            <Label Content="Название" HorizontalAlignment="Left" Margin="4,25,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.121,0.171"/>
-            <Label Content="Описание" HorizontalAlignment="Left" Margin="4,48,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.121,0.171"/>
-            <Label Content="Вес" HorizontalAlignment="Left" Margin="5,117,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.121,0.171"/>
-            <Label Content="Цена" HorizontalAlignment="Left" Margin="5,140,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.121,0.171"/>
-            <Button Content="Добавить" HorizontalAlignment="Left" Margin="10,15,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="247" Height="32" Click="Button_Click" Grid.Row="1"/>
-            <Label Content="Тип" HorizontalAlignment="Left" Margin="5,2,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.121,0.171"/>
             <ComboBox x:Name="typeField" Grid.ColumnSpan="2" HorizontalAlignment="Left" Margin="70,6,0,0" VerticalAlignment="Top" Width="188" SelectedIndex="0" SelectionChanged="typeField_SelectionChanged">
-                <ComboBoxItem Content="Оружие"/>
-                <ComboBoxItem Content="Еда"/>
-                <ComboBoxItem Content="Броня"/>
+                <ComboBoxItem Content="{DynamicResource weapon}"/>
+                <ComboBoxItem Content="{DynamicResource food}"/>
+                <ComboBoxItem Content="{DynamicResource cloth}"/>
             </ComboBox>
             <TextBox x:Name="otherField" HorizontalAlignment="Left" Margin="70,167,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="188" Grid.ColumnSpan="2" Text="0" Grid.RowSpan="2"/>
-            <Label x:Name="otherLabel" Content="Урон" HorizontalAlignment="Left" Margin="5,163,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.121,0.171" Grid.RowSpan="2"/>
+            <!---->
+
+            <!-- Кнопки -->
+            <Button x:Name="addButton" Content="{DynamicResource addButton}" HorizontalAlignment="Left" Margin="2,15,0,0" VerticalAlignment="Top" Grid.ColumnSpan="2" Width="255" Height="32" Click="Button_Click" Grid.Row="1"/>
+            <!---->
+
+            <!-- Надписи -->
+            <Label x:Name="typeLabel" Content="{DynamicResource typeLabel}" HorizontalAlignment="Left" Margin="1,2,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.121,0.171"/>
+            <Label x:Name="nameLabel" Content="{DynamicResource nameLabel}" HorizontalAlignment="Left" Margin="1,25,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.121,0.171"/>
+            <Label x:Name="descriptionLabel" Content="{DynamicResource description}" HorizontalAlignment="Left" Margin="1,48,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.121,0.171"/>
+            <Label x:Name="weightLabel" Content="{DynamicResource weight}" HorizontalAlignment="Left" Margin="1,117,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.121,0.171"/>
+            <Label x:Name="priceLabel" Content="{DynamicResource price}" HorizontalAlignment="Left" Margin="1,140,0,11" RenderTransformOrigin="0.121,0.171"/>
+            <Label x:Name="otherLabel" Content="{DynamicResource otherLabel}" HorizontalAlignment="Left" Margin="1,163,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.121,0.171" Grid.RowSpan="2"/>
+            <!---->
+
         </Grid>
+
+        <!-- Поля для ввода -->
         <TextBox x:Name="inventoryTab" HorizontalAlignment="Left" Margin="292,21,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="292" Height="263" Grid.RowSpan="2"/>
-        <Button x:Name="stasikButton" Content="Анекдот дня" HorizontalAlignment="Left" Margin="292,168,0,0" VerticalAlignment="Top" Grid.Row="1" Width="292" Click="StatikClick" Height="20"/>
         <ComboBox x:Name="itemsList" HorizontalAlignment="Left" Margin="14,21,0,0" VerticalAlignment="Top" Width="268" SelectedIndex="0" SelectionChanged="itemsList_SelectionChanged_1" Height="22"/>
-        <ComboBox x:Name="enchantmentField" HorizontalAlignment="Left" Margin="84,96,0,0" VerticalAlignment="Top" Width="188" SelectedIndex="0" SelectionChanged="typeField_SelectionChanged" Grid.Row="1">
-            <ComboBoxItem Content="Бесконечность"/>
-            <ComboBoxItem Content="Лёгкость"/>
-            <ComboBoxItem Content="Позолота"/>
+
+        <ComboBox x:Name="enchantmentField" HorizontalAlignment="Left" Margin="91,96,0,0" VerticalAlignment="Top" Width="181" SelectedIndex="0" SelectionChanged="typeField_SelectionChanged" Grid.Row="1">
+            <ComboBoxItem Content="{DynamicResource infinityEnch}"/>
+            <ComboBoxItem Content="{DynamicResource lightnessEnch}"/>
+            <ComboBoxItem Content="{DynamicResource goldenEnch}"/>
         </ComboBox>
-        <Button x:Name="enchantButton" Content="Зачаровать выбранный предмет" HorizontalAlignment="Left" Margin="24,127,0,0" VerticalAlignment="Top" Width="248" Height="28" Grid.Row="1" Click="enchantButton_Click"/>
-        <Label Content="Чары" HorizontalAlignment="Left" Margin="24,95,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.121,0.171" Grid.Row="1"/>
-        <Button x:Name="btnLoad" Content="Загрузить" HorizontalAlignment="Left" Margin="24,194,0,0" Grid.Row="1" VerticalAlignment="Top" Width="119" Click="btnLoad_Click"/>
-        <Button x:Name="btnSave" Content="Сохранить" HorizontalAlignment="Left" Margin="148,194,0,0" Grid.Row="1" VerticalAlignment="Top" Width="124" Click="btnSave_Click"/>
-        <Label Content="Формат файла" HorizontalAlignment="Left" Margin="16,165,0,0" Grid.Row="1" VerticalAlignment="Top"/>
-        <ComboBox x:Name="cmbFileFormat" SelectedValuePath="Content" HorizontalAlignment="Left" Margin="218,167,0,0" VerticalAlignment="Top" Width="54" SelectedIndex="0" SelectionChanged="typeField_SelectionChanged" Grid.Row="1">
+
+        <ComboBox x:Name="cmbFileFormat" SelectedValuePath="Content" HorizontalAlignment="Left" Margin="113,167,0,0" VerticalAlignment="Top" Width="159" SelectedIndex="0" SelectionChanged="typeField_SelectionChanged" Grid.Row="1">
             <ComboBoxItem Content="json"/>
             <ComboBoxItem Content="dat"/>
         </ComboBox>
+        <!---->
 
+        <!-- Кнопки -->
+        <Button x:Name="stasikButton" Content="{DynamicResource stasikButton}" HorizontalAlignment="Left" Margin="292,168,0,0" VerticalAlignment="Top" Grid.Row="1" Width="292" Click="StatikClick" Height="20"/>
+        <Button x:Name="enchantButton" Content="{DynamicResource enchantButton}" HorizontalAlignment="Left" Margin="16,127,0,0" VerticalAlignment="Top" Width="256" Height="28" Grid.Row="1" Click="enchantButton_Click"/>
+        <Button x:Name="btnLoad" Content="{DynamicResource btnLoad}" HorizontalAlignment="Left" Margin="16,194,0,0" Grid.Row="1" VerticalAlignment="Top" Width="119" Click="btnLoad_Click"/>
+        <Button x:Name="btnSave" Content="{DynamicResource btnSave}" HorizontalAlignment="Left" Margin="148,194,0,0" Grid.Row="1" VerticalAlignment="Top" Width="124" Click="btnSave_Click"/>
+        <!---->
+
+        <!-- Надписи -->
+        <Label x:Name="enchantmentLabel" Content="{DynamicResource enchantmentLabel}" HorizontalAlignment="Left" Margin="10,94,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.121,0.171" Grid.Row="1"/>
+        <Label x:Name="fileFormatLabel" Content="{DynamicResource fileFormatLabel}" HorizontalAlignment="Left" Margin="16,165,0,0" Grid.Row="1" VerticalAlignment="Top" Width="194"/>
+        <ComboBox x:Name="menuLanguage" HorizontalAlignment="Left" Margin="464,192,0,0" Grid.Row="1" VerticalAlignment="Top" Width="120"/>
+        <!---->
     </Grid>
 </Window>

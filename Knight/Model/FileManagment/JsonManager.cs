@@ -22,12 +22,7 @@ namespace Knight.Model.FileManagment
 
         public Item Load()
         {
-            //DataContractJsonSerializer serializer = new DataContractJsonSerializer(typeof(Item));
-            //Stream stream = new FileStream(_path, FileMode.Open, FileAccess.Read);
             var info = File.ReadAllText(_path);
-            
-            //var item = (Item)serializer.ReadObject(stream);
-            //stream.Close();
             return JsonSerializer.Deserialize<Item>(info);
         }
 
@@ -46,11 +41,6 @@ namespace Knight.Model.FileManagment
             {
                 MessageBox.Show("Недопустимый тип");
             }
-            //var asas = item.GetType();
-            //DataContractJsonSerializer serializer = new DataContractJsonSerializer(item.GetType());
-            //Stream stream = new FileStream(_path, FileMode.Create);
-            //serializer.WriteObject(stream, item);
-            //stream.Close();
         }
     }
 }

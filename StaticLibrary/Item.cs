@@ -48,6 +48,7 @@ namespace StaticLibrary
         {
             _name = name;
             _description = description;
+            Type = "Item";
         }
 
         public Item(SerializationInfo info, StreamingContext context)
@@ -66,7 +67,7 @@ namespace StaticLibrary
 
         public Item()
         {
-
+            Type = "Item";
         }
 
         public virtual void Default()
@@ -79,28 +80,20 @@ namespace StaticLibrary
         public override string ToString()
         {
             string info = "";
-            info += "\n   Предмет:   " + _name;
-            info += "\n   Описание:   " + _description;
-            info += "\n   Вес:   " + _weight.ToString() + " кг.";
-            info += "\n   Цена:   " + _price.ToString() + " тугр.";
+            string type = this.Type.ToLower();
+            Application app = Application.Current;
+            info += $"{app.FindResource(type)}:   " + Name;
+            info += $"\n{app.FindResource("description")}:   " + Description;
+            info += $"\n{app.FindResource("weight")}:   " + Weight.ToString() + " " + app.FindResource("weightUnit");
+
+            info += $"\n{app.FindResource("price")}:   " + Price.ToString() + " " + app.FindResource("priceUnit");
 
             return info;
-        }
-
-        public virtual void Use()
-        {
-            string message = "Ничего не произошло...";
-            MessageBox.Show(message);
         }
 
         public override int GetHashCode()
         {
             return Name.GetHashCode() + Description.GetHashCode() + Weight.GetHashCode() + Price.GetHashCode();
-        }
-
-        public override bool Equals(object? obj)
-        {
-            return base.Equals(obj);
         }
 
         public virtual void GetObjectData(SerializationInfo info, StreamingContext context)

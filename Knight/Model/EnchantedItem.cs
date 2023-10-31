@@ -39,12 +39,5 @@ namespace Knight.Model
 
             return description;
         }
-
-        //public override string ToString()
-        //{
-        //    item.Description = this._description;
-        //    return item.ToString();
-        //}
-
     }
 }
